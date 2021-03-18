@@ -36,4 +36,9 @@ declare module 'hessian.js' {
     readList(): Array<any>;
     readRef(): Object;
   }
+
+  function registerDecodeHandler(
+    className: string,
+    handler: Function,
+  ): JavaType;
 }

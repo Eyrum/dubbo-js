@@ -34,6 +34,7 @@ import {
   TDubboService,
 } from '../types';
 import {msg, noop, traceInfo} from '../common/util';
+import {BigDecimalHandler} from '../serialization/custom-handler';
 
 const log = debug('dubbo:bootstrap');
 const packageVersion = require('../../package.json').version;
@@ -89,7 +90,10 @@ export default class Dubbo<TService = Object>
     this._registryService(props.service);
     log('interfaces:|>', this._interfaces);
 
-    this._readyPromise = new Promise(resolve => {
+    // 设置自定义 Hessian decode handler
+    this._setCustomHessianHandle();
+
+    this._readyPromise = new Promise((resolve) => {
       this._readyResolve = resolve;
     });
     this._subscriber = {onTrace: noop};
@@ -155,7 +159,7 @@ export default class Dubbo<TService = Object>
     }
 
     //proxy methods
-    Object.keys(methods).forEach(name => {
+    Object.keys(methods).forEach((name) => {
       proxyObj[name] = async (...args: any[]) => {
         log('%s create context', name);
         //创建dubbo调用的上下文
@@ -269,5 +273,9 @@ export default class Dubbo<TService = Object>
     for (let key in service) {
       this._service[key] = service[key](this);
     }
+  }
+
+  private _setCustomHessianHandle() {
+    BigDecimalHandler();
   }
 }
