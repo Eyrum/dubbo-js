@@ -1,5 +1,5 @@
 {
-  "name": "apache-dubbo-js",
+  "name": "weidian-apache-dubbo-js",
   "version": "3.0.0-rc6",
   "main": "./es7/index.js",
   "types": "./es7/typings/index.d.ts",
@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "debug": "3.1.0",
-    "hessian.js": "2.5.0",
+    "hessian.js": "2.9.0",
     "ip": "1.1.5",
     "js-to-java": "2.4.0",
     "koa-compose": "4.0.0",
