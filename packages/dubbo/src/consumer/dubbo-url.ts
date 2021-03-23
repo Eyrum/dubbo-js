@@ -47,6 +47,7 @@ export default class DubboUrl {
     this.version =
       this._query.version || this._query['default.version'] || '0.0.0';
     this.group = this._query.group || this._query['default.group'] || '';
+    this.methods = this._query.methods ? this._query.methods.split(',') : [];
   }
 
   private readonly _url: Url;
@@ -59,6 +60,7 @@ export default class DubboUrl {
   public readonly dubboVersion: string;
   public readonly version: string;
   public readonly group: string;
+  public readonly methods: Array<string>;
 
   static from(providerUrl: string) {
     return new DubboUrl(providerUrl);
